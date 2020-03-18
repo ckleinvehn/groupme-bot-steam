@@ -6,7 +6,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def bot():
-    print(request.json())
+    if request:
+        print(request.json())
     os.sys.stdout.flush()
     # POST /bots/post
     # bot_id
