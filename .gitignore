@@ -1,0 +1,13 @@
+# byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+.idea
+
+# Flask
+instance/
+.webassets-cache
+
+# virtual environment
+venv
