@@ -20,18 +20,6 @@ def bot():
 
     return "OK", 200
 
-steam_ids = open('steam_ids.txt').read().strip().split(',\n')
-
-id_to_name = {}
-for steam_id in steam_ids:
-    id_to_name[steam_id] = os.getenv(steam_id)
-
-persona_state = {
-    0: 'offline',
-    1: 'online',
-    3: 'away'
-}
-
 
 def time_since_logoff(since_logoff):
     diff = datetime.today() - datetime.fromtimestamp(since_logoff)
@@ -42,12 +30,26 @@ def time_since_logoff(since_logoff):
     return years, months, days, hours, minutes
 
 
-query_string = {
-    'key': os.getenv('API_KEY'),
-}
-query_string['steamids'] = ','.join([f'{id}' for id in id_to_name.keys()])
-
 def process_friends_status():
+    steam_ids = open('steam_ids.txt').read().strip().split(',\n')
+    logging.info('File opened successfully')
+
+    id_to_name = {}
+    for steam_id in steam_ids:
+        id_to_name[steam_id] = os.getenv(steam_id)
+
+    persona_state = {
+        0: 'offline',
+        1: 'online',
+        3: 'away'
+    }
+
+    query_string = {
+        'key': os.getenv('API_KEY'),
+    }
+
+    query_string['steamids'] = ','.join([f'{id}' for id in id_to_name.keys()])
+
     response = requests.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/', params=query_string)
 
     logging.info(response.json())
