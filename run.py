@@ -45,7 +45,7 @@ def process_friends_status():
     }
 
     query_string = {
-        'key': os.getenv('API_KEY'),
+        'key': os.getenv('STEAM_WEB_API_KEY'),
     }
 
     query_string['steamids'] = ','.join([f'{id}' for id in id_to_name.keys()])
