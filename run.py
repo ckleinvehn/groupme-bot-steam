@@ -13,9 +13,10 @@ def bot():
             requests.post('https://api.groupme.com/v3/bots/post',
                           params=os.getenv('GROUPME_ACCESS_TOKEN'),
                           data={'bot_id': os.getenv('GROUPME_BOT_ID'), 'text': process_friends_status()})
-        logging.info('Responding to received message.')
+            logging.info('Responding to received message.')
+        else: logging.info('Not responding to received message.')
     except:
-        logging.info('Not responding to received message.')
+        logging.info('Error when processing.')
 
     return "OK", 200
 
@@ -48,6 +49,8 @@ query_string['steamids'] = ','.join([f'{id}' for id in id_to_name.keys()])
 
 def process_friends_status():
     response = requests.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/', params=query_string)
+
+    logging.info(response.json())
 
     for friend in response.json()['response']['players']:
         status = f"{id_to_name[friend['steamid']]} is {persona_state[friend['personastate']]}"
