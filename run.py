@@ -1,11 +1,16 @@
 from datetime import datetime
 import requests, os
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
 @app.route('/')
 def bot():
+    print(request.json())
+    os.sys.stdout.flush()
+    # POST /bots/post
+    # bot_id
+    # text
     return 'Hello, World!'
 
 steam_ids = open('steam_ids.txt').read().strip().split(',\n')
