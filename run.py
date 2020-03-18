@@ -54,6 +54,8 @@ def process_friends_status():
 
     logging.info(response.json())
 
+    message = ""
+
     for friend in response.json()['response']['players']:
         status = f"{id_to_name[friend['steamid']]} is {persona_state[friend['personastate']]}"
 
@@ -85,6 +87,6 @@ def process_friends_status():
         else:
             status += "."
 
-        status += '\n'
+        message += status + '\n'
 
-    return status
+    return message
