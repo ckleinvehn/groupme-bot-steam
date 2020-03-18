@@ -85,4 +85,6 @@ def process_friends_status():
         else:
             status += "."
 
-        return status
+        status += '\n'
+
+    return status
