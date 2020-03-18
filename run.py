@@ -17,6 +17,8 @@ def bot():
     except:
         logging.info('Not responding to received message.')
 
+    return "OK", 200
+
 steam_ids = open('steam_ids.txt').read().strip().split(',\n')
 
 id_to_name = {}
