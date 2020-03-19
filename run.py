@@ -64,7 +64,7 @@ def bot():
                           data={'bot_id': os.getenv('GROUPME_BOT_ID'), 'text': get_players_status()})
             logging.info('Responding to message.')
         else: logging.info('Not responding to message.')
-    except: logging.error('Error occurred while responding to message.')
+    except Exception as e: logging.error(str(e)); logging.error('Error occurred while responding to message.')
 
     return "OK", 200
 
