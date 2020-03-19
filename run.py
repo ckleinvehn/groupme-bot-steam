@@ -126,7 +126,7 @@ class Player:
 
 
     def __str__(self):
-        msg = f"{self.name} is {self.status.name.replace('_', '').lower()}"
+        msg = f"{self.id[1]} is {self.status.name.replace('_', '').lower()}"
 
         # offline
         if self.status == Status.OFFLINE: msg += f", last seen {self.get_offline_status()}"
