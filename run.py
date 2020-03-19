@@ -35,10 +35,10 @@ class State:
         self.args = list()
 
         for input in inputs:
-            if input.startswith('-') or input.startswith('--'):
+            if input.startswith('-') or input.startswith('—'):
                 # option
                 #   e.g., -va
-                #   e.g., --verbose,all
+                #   e.g., —verbose,all
                 for option in (input[1:] if input.startswith('-') else input[2:].split(',')):
                     if ret := State.options.get(option): self.opts.add(ret)
                     else: logging.warning('Unknown option encountered.')
@@ -103,7 +103,7 @@ def get_players_status():
 
     online.sort(key=lambda player: player.id[1])  # by name
     offline.sort(key=lambda player: player.id[1]) # secondary key, by name
-    offline.sort(key=lambda player: player.status_info['last_seen']) # primary key, by time last seen
+    offline.sort(key=lambda player: player.status_info['last_seen'], reverse=True) # primary key, by time last seen
 
     players = []
     # notice these if statements are not mutually exclusive
