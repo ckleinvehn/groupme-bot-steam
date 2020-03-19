@@ -153,7 +153,7 @@ class Player:
     def get_offline_status(self):
         global program_state
 
-        last_seen = Player.time_since_logoff(self.status_info['lastlogoff'])
+        last_seen = Player.time_since_logoff(self.status_info['last_seen'])
 
         verbose = 'v' in program_state.opts
         output = []
