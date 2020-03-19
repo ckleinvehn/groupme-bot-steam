@@ -48,7 +48,7 @@ class State:
                 #   Player1,Player2,...
                 self.args.extend(input.split(','))
 
-        if 'n' not in program_state.opts and 'f' not in program_state.opts:
+        if 'n' not in self.opts and 'f' not in self.opts:
             self.opts.add('n'); self.opts.add('f') # display both online and offline players
 
 
@@ -64,7 +64,8 @@ def bot():
                           data={'bot_id': os.getenv('GROUPME_BOT_ID'), 'text': get_players_status()})
             logging.info('Responding to message.')
         else: logging.info('Not responding to message.')
-    except Exception as e: logging.error(str(e)); logging.error('Error occurred while responding to message.')
+    except Exception as e:
+        logging.error(str(e)); logging.error('Error occurred while responding to message.')
 
     return "OK", 200
 
