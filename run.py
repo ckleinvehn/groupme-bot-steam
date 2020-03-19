@@ -12,7 +12,7 @@ logging.basicConfig(stream=sys.stdout)
 dynamodb = boto3.resource('dynamodb')
 table    = dynamodb.Table('Friends')
 logging.info('Database opened successfully.')
-
+program_state = None
 
 class State:
     options = {
@@ -52,9 +52,10 @@ class State:
             self.opts.add('n'); self.opts.add('f') # display both online and offline players
 
 
-program_state = None
 @app.route('/', methods=['POST'])
 def bot():
+    global program_state
+
     try:
         msg = request.get_json()['text']
         if msg.startswith('!status'):
@@ -71,6 +72,8 @@ def bot():
 
 
 def get_players_status():
+    global program_state
+
     items = []
 
     if len(program_state.args) > 0: # get just players specified
@@ -147,6 +150,8 @@ class Player:
 
 
     def get_offline_status(self):
+        global program_state
+
         last_seen = Player.time_since_logoff(self.status_info['lastlogoff'])
 
         verbose = 'v' in program_state.opts
