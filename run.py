@@ -29,6 +29,7 @@ class State:
         'offline' : 'f'
     }
 
+
     def __init__(self, inputs):
         self.opts = set()
         self.args = list()
@@ -107,7 +108,7 @@ def get_players_status():
 
     players.sort(key=lambda player: player.id[1])                                 # secondary key, by name
     players.sort(key=lambda player: 1 if player.status == Status.OFFLINE else 0)  # primary key, by those online first
-    return str(players)
+    return "\n".join(players)
 
 
 class Player:
@@ -132,7 +133,7 @@ class Player:
         # not offline, playing a game
         elif game := self.status_info.get('in_game'): msg += f", playing {game}"
 
-        return msg + ".\n"
+        return msg + "."
 
 
     halfway = [
