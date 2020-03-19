@@ -56,7 +56,7 @@ program_state = None
 @app.route('/', methods=['POST'])
 def bot():
     try:
-        msg = request.json()['text']
+        msg = request.get_json()['text']
         if msg.startswith('!status'):
             program_state = State(msg[7:].strip().split())
             requests.post('https://api.groupme.com/v3/bots/post',
