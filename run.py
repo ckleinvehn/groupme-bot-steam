@@ -101,13 +101,15 @@ def get_players_status():
         if player.status != Status.OFFLINE: online.append(player)
         else: offline.append(player)
 
+    online.sort(key=lambda player: player.id[1])  # by name
+    offline.sort(key=lambda player: player.id[1]) # secondary key, by name
+    offline.sort(key=lambda player: player.status_info['last_seen']) # primary key, by time last seen
+
     players = []
     # notice these if statements are not mutually exclusive
     if 'n' in program_state.opts: players.extend(online)
     if 'f' in program_state.opts: players.extend(offline)
 
-    players.sort(key=lambda player: player.id[1])                                 # secondary key, by name
-    players.sort(key=lambda player: 1 if player.status == Status.OFFLINE else 0)  # primary key, by those online first
     return "\n".join([str(player) for player in players])
 
 
@@ -167,7 +169,7 @@ class Player:
                 if not verbose: break
                 start = True
 
-        return ", ".join(output)
+        return ", ".join(output) + " ago"
 
 
     @staticmethod
