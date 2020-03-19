@@ -7,7 +7,7 @@ from enum import IntEnum, Flag
 app = Flask(__name__)
 
 # so it's accessible from Heroku's logs
-logging.basicConfig(stream=sys.stdout)
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 dynamodb = boto3.resource('dynamodb')
 table    = dynamodb.Table('Friends')
@@ -85,7 +85,7 @@ def get_players_status():
         items = table.scan()['Items']
 
     ids_to_names = {}
-    for item in items: ids_to_names[item["SteamId"]] = item["Name"]
+    for item in items: ids_to_names[item["SteamID"]] = item["Name"]
 
     query_string = {
         'key'      : os.getenv('STEAM_WEB_API_KEY'),
