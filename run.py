@@ -35,10 +35,10 @@ class State:
         self.args = list()
 
         for input in inputs:
-            if input.startswith('-') or input.startswith('—'):
+            if input.startswith('-') or input.startswith('―'):
                 # option
                 #   e.g., -va
-                #   e.g., —verbose,all
+                #   e.g., ―verbose,all
                 for option in (input[1:] if input.startswith('-') else input[2:].split(',')):
                     if ret := State.options.get(option): self.opts.add(ret)
                     else: logging.warning('Unknown option encountered.')
